@@ -4,7 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 //Action redux
 import { addNewProductAction } from '../actions/productsActions'
 
-const NewProduct = () => {
+
+import { useNavigate } from 'react-router-dom'
+
+const NewProduct = ({ history }) => {
+
+  let navigate = useNavigate()
 
   //State of component
   const [name, setName ] = useState('')
@@ -12,6 +17,11 @@ const NewProduct = () => {
 
   //dispath create new function
   const dispatch= useDispatch()
+
+  //Acces to global state
+  const loading = useSelector((state) => state.products.loading )
+  const error = useSelector( state => state.products.error)
+
 
   //call the funcion product action
   const addProduct = (product) => dispatch( addNewProductAction(product) )
@@ -31,6 +41,9 @@ const NewProduct = () => {
       name,
       price,
     })
+
+    //Redirect
+    navigate('/')
   }
   
   
@@ -77,6 +90,14 @@ const NewProduct = () => {
               >
                 Send
               </button>
+
+              {
+                loading ? <p>loading...</p> : null
+              }
+
+              {
+                error ? <p className='alert alert-danger p2 text-center mt-2'>Unexpetd Error call a developer =)</p> : null
+              }
             </form>
           </div>
         </div>
