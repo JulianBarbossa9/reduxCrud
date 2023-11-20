@@ -11,6 +11,7 @@ import {
   PRODUCT_DELETE_SUCCES,
   PRODUCT_DELETE_ERROR,
   GET_PRODUCT_EDIT,
+  START_EDIT_PRODUCT,
   PRODUCT_EDIT_SUCCESS,
   PRODUCT_EDIT_ERROR,
 } from '../types'
@@ -140,4 +141,33 @@ export function editProduct(product) {
 const getEditProduct = (product) => ({
   type: GET_PRODUCT_EDIT,
   payload: product
+})
+
+
+export function editProductById(product){
+  return async (dispatch) => {
+    dispatch(getEditProductId())
+    try {
+      await clientAxios.put(`/products/${product.id}`, product)
+      // console.log(response.data)
+      dispatch(editProductSucces(product))
+    } catch (error) {
+      dispatch(editProductError(true))
+    }
+  }
+}
+
+const getEditProductId = () => ({
+  type: START_EDIT_PRODUCT,
+  // payload: product
+})
+
+const editProductSucces = (product) => ({
+  type: PRODUCT_EDIT_SUCCESS,
+  payload: product
+})
+
+const editProductError = (stateError) => ({
+  type: PRODUCT_EDIT_ERROR,
+  payload: stateError
 })
