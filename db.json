@@ -3,11 +3,11 @@
     {
       "id": 1,
       "name": "Jugo de Zanahoria",
-      "price": "31111"
+      "price": "999"
     },
     {
       "name": "Jugo de Naranja",
-      "price": "300",
+      "price": "3",
       "id": 3
     },
     {
@@ -17,7 +17,7 @@
     },
     {
       "name": "Jugo de Fresa",
-      "price": "200",
+      "price": "209",
       "id": 5
     },
     {
@@ -49,6 +49,11 @@
       "name": "arroz",
       "price": 444,
       "id": 12
+    },
+    {
+      "name": "tstv2",
+      "price": 5555,
+      "id": 13
     }
   ]
 }
