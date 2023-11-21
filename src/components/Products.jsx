@@ -10,9 +10,8 @@ const Products = () => {
   
   
   useEffect(() => {
-    const downloadProducts = () => dispatch(getAllProducts())
-    downloadProducts()
-  },[])
+    dispatch(getAllProducts())
+  }, [])
   
   const allProducts = useSelector((state) => state.products.products)
   // console.log(donwloadProducts)
