@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 
 //Action redux
 import { addNewProductAction } from '../actions/productsActions'
+import { showAlert, hideAlertAction } from '../actions/alertActions'
 
 
 import { useNavigate } from 'react-router-dom'
 
-const NewProduct = ({ history }) => {
+const NewProduct = () => {
 
   let navigate = useNavigate()
 
@@ -21,20 +22,35 @@ const NewProduct = ({ history }) => {
   //Acces to global state
   const loading = useSelector((state) => state.products.loading )
   const error = useSelector( state => state.products.error)
+  const alert = useSelector( state => state.alert.alert)
+  // console.log(alert)
+
+  
+  
 
 
   //call the funcion product action
   const addProduct = (product) => dispatch( addNewProductAction(product) )
   
+
+
   const submitNewProduct = e => {
     e.preventDefault()
 
     //validate form
     if(name.trim() === '' || price <= 0){
+      const alert = {
+        msg: 'Both field are required',
+        classes: 'alert alert-danger text-center text-uppercase p3 '
+      } 
+      
+      dispatch(showAlert(alert))
       return 
     }
 
-    //check error 569
+    //check if not exist error
+    dispatch(hideAlertAction()) 
+
 
     //create new product
     addProduct({
@@ -56,6 +72,8 @@ const NewProduct = ({ history }) => {
             <h2 className='text-center mb-4 font-weight-bold'>
               Add new Product
             </h2>
+
+            { alert ? <p className={alert.classes}>{alert.msg}</p>: null }
 
             <form 
               onSubmit={submitNewProduct}
@@ -92,8 +110,9 @@ const NewProduct = ({ history }) => {
               </button>
 
               {
-                loading ? <p>loading...</p> : null
+                loading ? <p>Loading...</p> : null
               }
+
 
               {
                 error ? <p className='alert alert-danger p2 text-center mt-2'>Unexpetd Error call a developer =)</p> : null
